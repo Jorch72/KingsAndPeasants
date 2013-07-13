@@ -10,8 +10,16 @@
  */
 package vazkii.kap.network;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import vazkii.kap.KingsAndPeasants;
+import vazkii.kap.core.lib.LibMisc;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
@@ -19,7 +27,36 @@ public final class PacketManager implements IPacketHandler {
 
 	@Override
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
-
+		try {
+			ByteArrayInputStream byteStream = new ByteArrayInputStream(packet.data);
+			ObjectInputStream objStream = new ObjectInputStream(byteStream);
+			IPacket ipacket = (IPacket) objStream.readObject();
+			
+			KingsAndPeasants.proxy.packetHandle(ipacket);
+		} catch(Throwable e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Packet250CustomPayload buildPacket(IPacket ipacket) {
+		try {
+			Packet250CustomPayload payload = new Packet250CustomPayload();
+			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+			ObjectOutputStream objStream = new ObjectOutputStream(byteStream);
+			
+			ipacket.process();
+			objStream.writeObject(ipacket);
+			
+			payload.channel = LibMisc.NETWORK_CHANNEL;
+			payload.data = byteStream.toByteArray();
+			payload.length = payload.data.length;
+			
+			return payload;
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }
