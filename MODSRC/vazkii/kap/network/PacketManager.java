@@ -31,31 +31,30 @@ public final class PacketManager implements IPacketHandler {
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(packet.data);
 			ObjectInputStream objStream = new ObjectInputStream(byteStream);
 			IPacket ipacket = (IPacket) objStream.readObject();
-			
+
 			KingsAndPeasants.proxy.packetHandle(ipacket);
 		} catch(Throwable e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static Packet250CustomPayload buildPacket(IPacket ipacket) {
 		try {
 			Packet250CustomPayload payload = new Packet250CustomPayload();
 			ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 			ObjectOutputStream objStream = new ObjectOutputStream(byteStream);
-			
-			ipacket.process();
+
 			objStream.writeObject(ipacket);
-			
+
 			payload.channel = LibMisc.NETWORK_CHANNEL;
 			payload.data = byteStream.toByteArray();
 			payload.length = payload.data.length;
-			
+
 			return payload;
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 

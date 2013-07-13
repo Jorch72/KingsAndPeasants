@@ -10,6 +10,7 @@
  */
 package vazkii.kap.util.storage;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -21,15 +22,28 @@ import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.core.lib.LibMisc;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public final class PlayerDataStorage {
+public final class PlayerDataStorage implements Serializable {
 
-	private static final String TAG_NAME = "PlayerData";
+	private static final long serialVersionUID = 2380689066353733906L;
+
+	private static final String TAG_NAME = LibMisc.MOD_ID + "_PlayerData";
 
 	public static final Map<String, PlayerDataStorage> playerData = new HashMap();
 
+	private transient String username;
+
+	@SideOnly(Side.CLIENT)
+	public static PlayerDataStorage clientData;
+
 	@NBTManaged("gold") private int gold;
 	@NBTManaged("rep") private int rep;
+
+	public PlayerDataStorage(String username) {
+		this.username = username;
+	}
 
 	public int getGold() {
 		return gold;
@@ -55,7 +69,7 @@ public final class PlayerDataStorage {
 
 	public EntityPlayer asEntityPlayer() {
 		MinecraftServer server = MinecraftServer.getServer();
-		return server == null ? null : server.getConfigurationManager().getPlayerForUsername(TAG_NAME);
+		return server == null ? null : server.getConfigurationManager().getPlayerForUsername(username);
 	}
 
 	public void update() {
@@ -81,8 +95,8 @@ public final class PlayerDataStorage {
 
 	public static void playerLogin(EntityPlayer player) {
 		NBTTagCompound cmp = player.getEntityData();
-		if(!cmp.hasKey(LibMisc.MOD_ID)) {
-			PlayerDataStorage storage = new PlayerDataStorage();
+		if(!cmp.hasKey(TAG_NAME)) {
+			PlayerDataStorage storage = new PlayerDataStorage(player.username);
 			playerData.put(player.username, storage);
 
 			NBTTagCompound cmp1 = new NBTTagCompound();
@@ -91,7 +105,7 @@ public final class PlayerDataStorage {
 		} else {
 			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_NAME);
 
-			PlayerDataStorage storage = new PlayerDataStorage();
+			PlayerDataStorage storage = new PlayerDataStorage(player.username);
 			NBTManager.loadType(cmp1, storage);
 			playerData.put(player.username, storage);
 		}

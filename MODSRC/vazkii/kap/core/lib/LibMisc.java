@@ -18,6 +18,6 @@ public final class LibMisc {
 
 	public static final String COMMON_PROXY = "vazkii.kap.core.proxy.CommonProxy";
 	public static final String CLIENT_PROXY = "vazkii.kap.core.proxy.ClientProxy";
-	
+
 	public static final String NETWORK_CHANNEL = "Vz_KAP";
 }

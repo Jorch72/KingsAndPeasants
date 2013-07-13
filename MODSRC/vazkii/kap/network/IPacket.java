@@ -17,8 +17,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IPacket extends Serializable {
 
-	public void process();
-
 	@SideOnly(Side.CLIENT)
 	public void handle_client();
 

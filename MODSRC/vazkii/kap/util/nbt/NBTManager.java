@@ -11,6 +11,10 @@
 package vazkii.kap.util.nbt;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -19,7 +23,20 @@ public final class NBTManager {
 	public static void loadType(NBTTagCompound cmp, Object o) {
 		Class type = o.getClass();
 
-		for(Field f : type.getFields()) {
+		List<Field> fields = new ArrayList();
+		fields.addAll(Arrays.asList(type.getDeclaredFields()));
+
+		Class supertype = type;
+		while((supertype = supertype.getSuperclass()) != null)
+			fields.addAll(Arrays.asList(supertype.getDeclaredFields()));
+
+		for(Field f : fields) {
+			int modifiers = f.getModifiers();
+			if(Modifier.isFinal(modifiers) || Modifier.isStatic(modifiers))
+				continue;
+
+			f.setAccessible(true);
+
 			NBTManaged managed = f.getAnnotation(NBTManaged.class);
 			if(managed != null) {
 				try {
@@ -37,14 +54,27 @@ public final class NBTManager {
 	public static void writeType(NBTTagCompound cmp, Object o) {
 		Class type = o.getClass();
 
-		for(Field f : type.getFields()) {
+		List<Field> fields = new ArrayList();
+		fields.addAll(Arrays.asList(type.getDeclaredFields()));
+
+		Class supertype = type;
+		while((supertype = supertype.getSuperclass()) != null)
+			fields.addAll(Arrays.asList(supertype.getDeclaredFields()));
+
+		for(Field f : fields) {
+			int modifiers = f.getModifiers();
+			if(Modifier.isFinal(modifiers) || Modifier.isStatic(modifiers))
+				continue;
+
+			f.setAccessible(true);
+
 			NBTManaged managed = f.getAnnotation(NBTManaged.class);
+
 			if(managed != null) {
 				try {
 					String tag = managed.value();
-					f.get(o);
 
-					writeManagedValue(cmp, tag, o);
+					writeManagedValue(cmp, tag, f.get(o));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -79,29 +109,29 @@ public final class NBTManager {
 	}
 
 	private static void loadManagedValue(NBTTagCompound cmp, String tag, Field field, Object type) throws Exception {
-		Object obj = field.get(type);
+		Class fieldType = field.getType();
 
-		if(obj instanceof Byte)
+		if(fieldType.isAssignableFrom(byte.class))
 			field.set(type, cmp.getByte(tag));
-		else if(obj instanceof Short)
+		else if(fieldType.isAssignableFrom(short.class))
 			field.set(type, cmp.getShort(tag));
-		else if(obj instanceof Integer)
+		else if(fieldType.isAssignableFrom(int.class))
 			field.set(type, cmp.getInteger(tag));
-		else if(obj instanceof Long)
+		else if(fieldType.isAssignableFrom(long.class))
 			field.set(type, cmp.getLong(tag));
-		else if(obj instanceof Float)
+		else if(fieldType.isAssignableFrom(float.class))
 			field.set(type, cmp.getFloat(tag));
-		else if(obj instanceof Double)
+		else if(fieldType.isAssignableFrom(double.class))
 			field.set(type, cmp.getDouble(tag));
-		else if(obj instanceof byte[])
+		else if(fieldType.isAssignableFrom(byte[].class))
 			field.set(type, cmp.getByteArray(tag));
-		else if(obj instanceof String)
+		else if(fieldType.isAssignableFrom(String.class))
 			field.set(type, cmp.getString(tag));
-		else if(obj instanceof int[])
+		else if(fieldType.isAssignableFrom(int[].class))
 			field.set(type, cmp.getIntArray(tag));
 		else {
 			NBTTagCompound cmp1 = cmp.getCompoundTag(tag);
-			loadType(cmp1, obj);
+			loadType(cmp1, type);
 		}
 	}
 }

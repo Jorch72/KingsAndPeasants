@@ -12,10 +12,12 @@ package vazkii.kap;
 
 import java.util.logging.Logger;
 
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.kap.core.lib.LibMisc;
 import vazkii.kap.core.proxy.CommonProxy;
 import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.PlayerTracker;
+import vazkii.kap.util.handler.MobStatHandler;
 import vazkii.kap.util.handler.VillagerNamingHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -35,7 +37,7 @@ public final class KingsAndPeasants {
 
 	@SidedProxy(serverSide = LibMisc.COMMON_PROXY, clientSide = LibMisc.CLIENT_PROXY)
 	public static CommonProxy proxy;
-	
+
 	public Logger logger;
 
 	@EventHandler
@@ -44,6 +46,7 @@ public final class KingsAndPeasants {
 		logger = event.getModLog();
 
 		VillagerNamingHandler.init();
+		MinecraftForge.EVENT_BUS.register(new MobStatHandler());
 	}
 
 	@EventHandler
