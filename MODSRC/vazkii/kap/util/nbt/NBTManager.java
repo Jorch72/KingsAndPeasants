@@ -24,8 +24,9 @@ public final class NBTManager {
 			if(managed != null) {
 				try {
 					String tag = managed.value();
-
-					loadManagedValue(cmp, tag, f, o);
+					
+					if(cmp.hasKey(tag))
+						loadManagedValue(cmp, tag, f, o);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
