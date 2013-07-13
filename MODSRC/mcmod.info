@@ -6,12 +6,12 @@
   "version": "@VERSION@",
   "mcversion": "1.6+",
   "logoFile": "",
-  "url": ",
+  "url": "",
   "updateUrl": "",
   "authors": ["Vazkii"],
   "credits": "",
   "parent": "",
-  "screenshots": [],
+  "screenshots": [""],
   "dependencies": [""]
 }
 ]
