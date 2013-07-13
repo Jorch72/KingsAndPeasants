@@ -22,4 +22,8 @@ public class CommonProxy {
 		packet.handle_server();
 	}
 
+	public void registerTickHandler() {
+		// NO-OP, will need a server tick handler sometime
+	}
+
 }

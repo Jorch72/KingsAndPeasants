@@ -10,7 +10,10 @@
  */
 package vazkii.kap.core.proxy;
 
+import vazkii.kap.client.util.handler.ClientTickHandler;
 import vazkii.kap.network.IPacket;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
 
@@ -22,6 +25,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void packetHandle(IPacket packet) {
 		packet.handle_client();
+	}
+
+	@Override
+	public void registerTickHandler() {
+		super.registerTickHandler();
+		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
 	}
 
 }

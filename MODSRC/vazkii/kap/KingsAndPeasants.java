@@ -47,6 +47,8 @@ public final class KingsAndPeasants {
 
 		VillagerNamingHandler.init();
 		MinecraftForge.EVENT_BUS.register(new MobStatHandler());
+
+		proxy.registerTickHandler();
 	}
 
 	@EventHandler

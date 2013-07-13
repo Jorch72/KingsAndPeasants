@@ -20,8 +20,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.core.lib.LibMisc;
+import vazkii.kap.network.PacketManager;
+import vazkii.kap.network.packet.PacketPlayerData;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,6 +114,8 @@ public final class PlayerDataStorage implements Serializable {
 			playerData.put(player.username, storage);
 		}
 
+		PlayerDataStorage data = playerData.get(player.username);
+		PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(data)), (Player) player);
 	}
 
 	public static void playerLogout(EntityPlayer player) {

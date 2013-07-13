@@ -18,4 +18,10 @@ public final class LibResources {
 	public static final String NAMES_FEMALE = NAMES_LOCATION + "female.txt";
 	public static final String NAMES_LAST = NAMES_LOCATION + "last.txt";
 
+	public static final String PREFIX_RESOURCE = "kap:textures/";
+
+	public static final String PREFIX_GUI = PREFIX_RESOURCE + "gui/";
+
+	public static final String GUI_INDICATORS = PREFIX_GUI + "indicators.png";
+
 }

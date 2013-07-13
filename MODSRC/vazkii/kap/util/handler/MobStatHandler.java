@@ -15,7 +15,11 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import vazkii.kap.network.PacketManager;
+import vazkii.kap.network.packet.PacketPlayerData;
 import vazkii.kap.util.storage.PlayerDataStorage;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public final class MobStatHandler {
 
@@ -31,8 +35,7 @@ public final class MobStatHandler {
 			if(event.entityLiving instanceof IMob)
 				data.setReputation(data.getReputation() + xp * 5);
 
-			player.addChatMessage("Gold: " + data.getGold());
-			player.addChatMessage("Rep: " + data.getReputation());
+			PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(data)), (Player) player);
 		}
 	}
 
