@@ -1,0 +1,17 @@
+[
+{
+  "modid": "KingsAndPeasants",
+  "name": "Of Kings and Peasants",
+  "description": "A mod where you build a kingdom, become a king and manage workers. Fun is ensured!",
+  "version": "@VERSION@",
+  "mcversion": "1.6+",
+  "logoFile": "",
+  "url": ",
+  "updateUrl": "",
+  "authors": ["Vazkii"],
+  "credits": "",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": [""]
+}
+]
