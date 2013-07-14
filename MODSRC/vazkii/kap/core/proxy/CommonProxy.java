@@ -10,7 +10,10 @@
  */
 package vazkii.kap.core.proxy;
 
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.kap.network.IPacket;
+import vazkii.kap.util.handler.MobStatHandler;
+import vazkii.kap.util.handler.VillagerNamingHandler;
 
 public class CommonProxy {
 
@@ -26,4 +29,8 @@ public class CommonProxy {
 		// NO-OP, will need a server tick handler sometime
 	}
 
+	public void registerSubscribers() {
+		VillagerNamingHandler.init();
+		MinecraftForge.EVENT_BUS.register(new MobStatHandler());
+	}
 }

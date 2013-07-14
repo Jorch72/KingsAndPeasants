@@ -72,7 +72,7 @@ public final class InventoryDisplayHandler {
 		}
 	}
 
-	private static void drawIcon(int x, int y, int index) {
+	public static void drawIcon(int x, int y, int index) {
 		TextureManager tm = Minecraft.getMinecraft().renderEngine;
 
 		double u = index % 2 * 0.5;

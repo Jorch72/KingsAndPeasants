@@ -33,7 +33,7 @@ public final class MobStatHandler {
 
 			data.setGold(data.getGold() + xp);
 			if(event.entityLiving instanceof IMob)
-				data.setReputation(data.getReputation() + xp * 5);
+				data.setReputation(data.getReputation() + xp / 2);
 
 			PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(data)), (Player) player);
 		}

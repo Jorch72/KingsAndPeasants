@@ -10,6 +10,8 @@
  */
 package vazkii.kap.core.proxy;
 
+import net.minecraftforge.common.MinecraftForge;
+import vazkii.kap.client.hud.HUDStatPopup;
 import vazkii.kap.client.util.handler.ClientTickHandler;
 import vazkii.kap.network.IPacket;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -31,6 +33,12 @@ public class ClientProxy extends CommonProxy {
 	public void registerTickHandler() {
 		super.registerTickHandler();
 		TickRegistry.registerTickHandler(new ClientTickHandler(), Side.CLIENT);
+	}
+
+	@Override
+	public void registerSubscribers() {
+		super.registerSubscribers();
+		MinecraftForge.EVENT_BUS.register(new HUDStatPopup());
 	}
 
 }
