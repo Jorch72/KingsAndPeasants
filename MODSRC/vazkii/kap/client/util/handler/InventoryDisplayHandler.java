@@ -10,6 +10,8 @@
  */
 package vazkii.kap.client.util.handler;
 
+import java.util.Arrays;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
@@ -17,10 +19,13 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.kap.client.util.helper.RenderHelper;
 import vazkii.kap.core.lib.LibResources;
 import vazkii.kap.util.storage.PlayerDataStorage;
 
@@ -35,8 +40,8 @@ public final class InventoryDisplayHandler {
 				return;
 
 			ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
-			int x = res.getScaledWidth() / 2 + 100;
-			int y = res.getScaledHeight() / 2 - 60;
+			int x = res.getScaledWidth() / 2 + 98;
+			int y = res.getScaledHeight() / 2 - 58;
 
 			if(!creative) {
 				x -= 10;
@@ -46,11 +51,24 @@ public final class InventoryDisplayHandler {
 			if(!mc.thePlayer.getActivePotionEffects().isEmpty())
 				x += 60;
 
+			int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
+			int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;
+
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			drawSideTab(x, y);
+			GL11.glDisable(GL11.GL_BLEND);
+
+			y += 4;
+
+			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 			drawIcon(x, y, 0);
-			mc.fontRenderer.drawStringWithShadow("Gold: " + PlayerDataStorage.clientData.getGold(), x + 18, y + 5, 0xFFC600);
+			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
+				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.GOLD + "Gold: " + PlayerDataStorage.clientData.getGold()));
 			y += 16;
 			drawIcon(x, y, 1);
-			mc.fontRenderer.drawStringWithShadow("Rep: " + PlayerDataStorage.clientData.getReputation(), x + 18, y + 5, 0x0054FF);
+			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
+				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Renown: " + PlayerDataStorage.clientData.getReputation()));
 		}
 	}
 
@@ -69,6 +87,21 @@ public final class InventoryDisplayHandler {
 		tess.addVertexWithUV(x + 16, y + 16, 0, u + 0.5, v + 0.5);
 		tess.addVertexWithUV(x + 16, y, 0, u + 0.5, v);
 		tess.addVertexWithUV(x, y, 0, u, v);
+		tess.draw();
+	}
+
+	private static void drawSideTab(int x, int y) {
+		TextureManager tm = Minecraft.getMinecraft().renderEngine;
+
+		tm.func_110577_a(new ResourceLocation(LibResources.GUI_SIDE_TAB));
+
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertexWithUV(x, y + 64, 0, 0, 1);
+		tess.addVertexWithUV(x + 32, y + 64, 0, 1, 1);
+		tess.addVertexWithUV(x + 32, y, 0, 1, 0);
+		tess.addVertexWithUV(x, y, 0, 0, 0);
 		tess.draw();
 	}
 

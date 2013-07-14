@@ -23,5 +23,6 @@ public final class LibResources {
 	public static final String PREFIX_GUI = PREFIX_RESOURCE + "gui/";
 
 	public static final String GUI_INDICATORS = PREFIX_GUI + "indicators.png";
+	public static final String GUI_SIDE_TAB = PREFIX_GUI + "sideTab.png";
 
 }
