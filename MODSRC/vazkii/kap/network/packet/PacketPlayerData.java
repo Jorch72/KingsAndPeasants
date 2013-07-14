@@ -10,6 +10,8 @@
  */
 package vazkii.kap.network.packet;
 
+import vazkii.kap.client.hud.HUDStatPopup;
+import vazkii.kap.client.hud.HUDStatPopup.Entry;
 import vazkii.kap.network.IPacket;
 import vazkii.kap.util.storage.PlayerDataStorage;
 import cpw.mods.fml.relauncher.Side;
@@ -27,7 +29,19 @@ public class PacketPlayerData implements IPacket {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handle_client() {
+		PlayerDataStorage oldData = PlayerDataStorage.clientData;
 		PlayerDataStorage.clientData = data;
+
+		if(oldData == null)
+			return;
+
+		int diffGold = data.getGold() - oldData.getGold();
+		int diffRep = data.getReputation() - oldData.getReputation();
+
+		if(diffGold != 0)
+			HUDStatPopup.entriesWaiting.add(new Entry(0, diffGold > 0 ? "+" + diffGold : "" + diffGold));
+		if(diffRep != 0)
+			HUDStatPopup.entriesWaiting.add(new Entry(1, diffRep > 0 ? "+" + diffRep : "" + diffRep));
 	}
 
 	@Override

@@ -62,10 +62,12 @@ public final class InventoryDisplayHandler {
 			y += 4;
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawIcon(x, y, 0);
 			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
 				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.GOLD + "Gold: " + PlayerDataStorage.clientData.getGold()));
 			y += 16;
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawIcon(x, y, 1);
 			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
 				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Renown: " + PlayerDataStorage.clientData.getReputation()));
@@ -80,7 +82,6 @@ public final class InventoryDisplayHandler {
 
 		tm.func_110577_a(new ResourceLocation(LibResources.GUI_INDICATORS));
 
-		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Tessellator tess = Tessellator.instance;
 		tess.startDrawingQuads();
 		tess.addVertexWithUV(x, y + 16, 0, u, v + 0.5);

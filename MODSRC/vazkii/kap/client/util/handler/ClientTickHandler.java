@@ -12,6 +12,7 @@ package vazkii.kap.client.util.handler;
 
 import java.util.EnumSet;
 
+import vazkii.kap.client.hud.HUDStatPopup;
 import vazkii.kap.core.lib.LibMisc;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -33,7 +34,8 @@ public class ClientTickHandler implements ITickHandler {
 	}
 
 	private void clientTick(boolean start) {
-
+		if(!start)
+			HUDStatPopup.tick();
 	}
 
 	private void renderTick(boolean start, float partTicks) {
