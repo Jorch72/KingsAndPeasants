@@ -11,14 +11,22 @@
 package vazkii.kap.network;
 
 import net.minecraft.entity.player.EntityPlayer;
+import vazkii.kap.network.packet.PacketKingdomSync;
+import vazkii.kap.util.storage.KingdomData;
+import vazkii.kap.util.storage.KingdomList;
 import vazkii.kap.util.storage.PlayerStats;
 import cpw.mods.fml.common.IPlayerTracker;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public class PlayerTracker implements IPlayerTracker {
 
 	@Override
 	public void onPlayerLogin(EntityPlayer player) {
 		PlayerStats.playerLogin(player);
+		for(KingdomData kingdom : KingdomList.kingdoms)
+			if(kingdom.owner.equals(player.username))
+				PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketKingdomSync(kingdom)), (Player) player);
 	}
 
 	@Override

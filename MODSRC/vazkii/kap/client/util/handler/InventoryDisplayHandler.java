@@ -54,10 +54,7 @@ public final class InventoryDisplayHandler {
 			int mouseX = Mouse.getX() * res.getScaledWidth() / mc.displayWidth;
 			int mouseY = res.getScaledHeight() - Mouse.getY() * res.getScaledHeight() / mc.displayHeight;
 
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			drawSideTab(x, y);
-			GL11.glDisable(GL11.GL_BLEND);
 
 			y += 4;
 
@@ -105,5 +102,4 @@ public final class InventoryDisplayHandler {
 		tess.addVertexWithUV(x, y, 0, 0, 0);
 		tess.draw();
 	}
-
 }

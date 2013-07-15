@@ -16,6 +16,8 @@ import vazkii.kap.util.nbt.NBTManaged;
 
 public class KingdomData implements Serializable {
 
+	public static KingdomData clientKingdom;
+
 	private static final long serialVersionUID = 5797594957265101922L;
 	@NBTManaged("crest") public CrestData crest = new CrestData(0xFFFFFF, 0xFFFFFF, (short) -1);
 	@NBTManaged("name") public String name;
