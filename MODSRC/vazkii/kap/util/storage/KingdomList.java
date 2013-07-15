@@ -16,7 +16,6 @@ import java.util.List;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import vazkii.kap.util.handler.CacheHelper;
-import vazkii.kap.util.nbt.NBTManager;
 
 public class KingdomList {
 
@@ -28,7 +27,7 @@ public class KingdomList {
 		NBTTagList list = new NBTTagList();
 		for(KingdomData kingdom : kingdoms) {
 			NBTTagCompound cmp1 = new NBTTagCompound();
-			NBTManager.writeType(cmp1, kingdom);
+			kingdom.writeToNBT(cmp1);
 			list.appendTag(cmp1);
 		}
 		cmp.setTag(TAG_KINGDOM_LIST, list);
@@ -44,7 +43,7 @@ public class KingdomList {
 		for(int i = 0; i < list.tagCount(); i++) {
 			NBTTagCompound cmp1 = (NBTTagCompound) list.tagAt(i);
 			KingdomData tempData = new KingdomData(new CrestData(0, 0, (short) 0), "" , "");
-			NBTManager.loadType(cmp1, tempData);
+			tempData.readFromNBT(cmp1);
 			kingdoms.add(tempData);
 		}
 	}

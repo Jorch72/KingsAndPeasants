@@ -45,8 +45,8 @@ public class PlayerTracker implements IPlayerTracker {
 	public void onPlayerRespawn(EntityPlayer player) {
 		PlayerStats stats = PlayerStats.playerData.get(player.username);
 		stats.setGold(stats.getGold() - (int) (stats.getGold() * ConfigHandler.deathGoldLoss));
-		stats.setReputation(stats.getReputation() - (int) (stats.getReputation() * ConfigHandler.deathRepLoss)); 
-		
+		stats.setReputation(stats.getReputation() - (int) (stats.getReputation() * ConfigHandler.deathRepLoss));
+
 		PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(stats)), (Player) player);
 	}
 

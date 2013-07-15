@@ -24,11 +24,11 @@ public final class ConfigHandler {
 	private static final String OPTION_SCROLLING_TEXT = "scollingText.show";
 	private static final String OPTION_DEATH_GOLD_LOSS = "goldLoss.death";
 	private static final String OPTION_DEATH_REP_LOSS = "renownLoss.death";
-	
+
 	private static final String COMMENT_SCROLLING_TEXT = "Set to false to remove the scrolling text next to the crosshair when the playe recieves gold or renown.";
 	private static final String COMMENT_DEATH_GOLD_LOSS = "The multiplier (between 0.0 and 1.0) of the gold in hand to lose on death.";
 	private static final String COMMENT_DEATH_REP_LOSS = "The multiplier (between 0.0 and 1.0) of the reputation of the player to lose on death.";
-	
+
 	public static boolean doScrollingText = true;
 	public static float deathGoldLoss = 0.5F;
 	public static float deathRepLoss = 1F;
@@ -50,7 +50,7 @@ public final class ConfigHandler {
 
 		deathGoldLoss = getRangedFloat(OPTION_DEATH_GOLD_LOSS, deathGoldLoss, COMMENT_DEATH_GOLD_LOSS, 0F, 1F);
 		deathRepLoss = getRangedFloat(OPTION_DEATH_REP_LOSS, deathRepLoss, COMMENT_DEATH_REP_LOSS, 0F, 1F);
-		
+
 		config.save();
 	}
 
@@ -67,10 +67,10 @@ public final class ConfigHandler {
 		prop.comment = comment;
 		return prop.getBoolean(defaultValue);
 	}
-	
+
 	private static float getRangedFloat(String label, float defaultValue, String comment, float min, float max) {
 		Property prop = config.get(Configuration.CATEGORY_GENERAL, label, defaultValue);
 		prop.comment = comment;
-		return (float) (Math.max(min, Math.min(max, prop.getDouble(defaultValue))));
+		return (float) Math.max(min, Math.min(max, prop.getDouble(defaultValue)));
 	}
 }
