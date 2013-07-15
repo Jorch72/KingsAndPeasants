@@ -12,13 +12,15 @@ package vazkii.kap.network;
 
 import java.io.Serializable;
 
+import net.minecraft.network.INetworkManager;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IPacket extends Serializable {
 
 	@SideOnly(Side.CLIENT)
-	public void handle_client();
+	public void handle_client(INetworkManager manager, Player player);
 
-	public void handle_server();
+	public void handle_server(INetworkManager manager, Player player);
 }

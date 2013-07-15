@@ -10,14 +10,30 @@
  */
 package vazkii.kap.core.proxy;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.network.INetworkManager;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.client.hud.HUDStatPopup;
+import vazkii.kap.client.render.tile.RenderTileBanner;
 import vazkii.kap.client.util.handler.ClientTickHandler;
+import vazkii.kap.core.lib.LibResources;
 import vazkii.kap.network.IPacket;
+import vazkii.kap.tile.TileEntityBanner;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
+
+	public static List<String> iconNames = new ArrayList();
 
 	@Override
 	public boolean isClient() {
@@ -25,8 +41,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void packetHandle(IPacket packet) {
-		packet.handle_client();
+	public void packetHandle(INetworkManager manager, IPacket packet, Player player) {
+		packet.handle_client(manager, player);
 	}
 
 	@Override
@@ -36,9 +52,31 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public void initTileEntities() {
+		super.initTileEntities();
+
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new RenderTileBanner());
+	}
+
+	@Override
 	public void registerSubscribers() {
 		super.registerSubscribers();
 		MinecraftForge.EVENT_BUS.register(new HUDStatPopup());
 	}
 
+	@Override
+	public void readIconNames() {
+		try {
+			InputStream stream = KingsAndPeasants.class.getResourceAsStream(LibResources.NAMES_HERALDRY);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+			String line;
+			while((line = reader.readLine()) != null)
+				iconNames.add(line);
+
+			reader.close();
+		} catch (IOException e) {
+			throw new RuntimeException("(CraftHeraldy) Failed to load icon names!", e);
+		}
+	}
 }

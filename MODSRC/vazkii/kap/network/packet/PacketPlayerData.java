@@ -10,10 +10,12 @@
  */
 package vazkii.kap.network.packet;
 
+import net.minecraft.network.INetworkManager;
 import vazkii.kap.client.hud.HUDStatPopup;
 import vazkii.kap.client.hud.HUDStatPopup.Entry;
 import vazkii.kap.network.IPacket;
 import vazkii.kap.util.storage.PlayerDataStorage;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -28,7 +30,7 @@ public class PacketPlayerData implements IPacket {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void handle_client() {
+	public void handle_client(INetworkManager manager, Player player) {
 		PlayerDataStorage oldData = PlayerDataStorage.clientData;
 		PlayerDataStorage.clientData = data;
 
@@ -45,7 +47,7 @@ public class PacketPlayerData implements IPacket {
 	}
 
 	@Override
-	public void handle_server() {
+	public void handle_server(INetworkManager manager, Player player) {
 		// NO-OP
 	}
 }

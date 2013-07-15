@@ -52,6 +52,9 @@ public final class NBTManager {
 	}
 
 	public static void writeType(NBTTagCompound cmp, Object o) {
+		if(o == null)
+			return;
+
 		Class type = o.getClass();
 
 		List<Field> fields = new ArrayList();

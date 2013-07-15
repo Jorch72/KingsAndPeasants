@@ -10,16 +10,51 @@
  */
 package vazkii.kap.client.util.helper;
 
+import java.awt.Color;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import vazkii.kap.core.lib.LibResources;
+import vazkii.kap.util.storage.CrestDataStorage;
+
 public class RenderHelper {
+
+	public static void renderCrest(CrestDataStorage crest, double x, double y, double z) {
+		renderCrest(crest, x, y, z, true);
+	}
+
+	public static void renderCrest(CrestDataStorage crest, double x, double y, double z, boolean bg) {
+		GL11.glPushMatrix();
+
+		int ssx = crest.icon % 32;
+		int ssy = crest.icon / 32;
+		float scale = 1 / 32F;
+		if(bg) {
+			Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.ICON_HERALDRY_0));
+			int color = crest.color1;
+			Color colorRGB = new Color(color);
+			GL11.glColor3f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F);
+			drawTexturedQuad(x, y, z - 0.01, 64, 64, ssx * scale, (ssx + 1) * scale, ssy * scale, (ssy + 1) * scale);
+		}
+
+		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.ICON_HERALDRY_1));
+		int color1 = crest.color2;
+		Color colorRGB1 = new Color(color1);
+		if(!bg)
+			GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glColor3f(colorRGB1.getRed() / 255F, colorRGB1.getGreen() / 255F, colorRGB1.getBlue() / 255F);
+		GL11.glDisable(GL11.GL_LIGHTING);
+		drawTexturedQuad(x, y, z + 2, 64, 64, ssx * scale, (ssx + 1) * scale, ssy * scale, (ssy + 1) * scale);
+
+		GL11.glPopMatrix();
+	}
 
 	public static void renderTooltip(int x, int y, int color, int color2, List<String> tooltipData) {
 		GL11.glPushMatrix();
@@ -63,6 +98,16 @@ public class RenderHelper {
 			}
 		}
 		GL11.glPopMatrix();
+	}
+
+	public static void drawTexturedQuad(double x, double y, double z, int width, int height, float minU, float maxU, float minV, float maxV) {
+		Tessellator tess = Tessellator.instance;
+		tess.startDrawingQuads();
+		tess.addVertexWithUV(x, y + height, z, minU, maxV);
+		tess.addVertexWithUV(x + width, y + height, z, maxU, maxV);
+		tess.addVertexWithUV(x + width, y, z, maxU, minV);
+		tess.addVertexWithUV(x, y, z, minU, minV);
+		tess.draw();
 	}
 
 	public static void drawGradientRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
