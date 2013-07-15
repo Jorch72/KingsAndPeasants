@@ -23,6 +23,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.kap.client.util.handler.ConfigHandler;
 import vazkii.kap.client.util.handler.InventoryDisplayHandler;
 
 public class HUDStatPopup {
@@ -39,7 +40,7 @@ public class HUDStatPopup {
 
 	@ForgeSubscribe
 	public void renderHUD(RenderGameOverlayEvent.Post event) {
-		if(event.type == ElementType.CROSSHAIRS)
+		if(event.type == ElementType.CROSSHAIRS && ConfigHandler.doScrollingText)
 			for(Entry entry : entries.keySet())
 				renderEntry(entry, event);
 	}
