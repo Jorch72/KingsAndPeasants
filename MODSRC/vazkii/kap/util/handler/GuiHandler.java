@@ -13,6 +13,7 @@ package vazkii.kap.util.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import vazkii.kap.client.gui.GuiCrestCreator;
+import vazkii.kap.client.gui.GuiKingdomCreator;
 import vazkii.kap.core.lib.LibGuiIDs;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -28,6 +29,9 @@ public final class GuiHandler implements IGuiHandler {
 		switch(ID) {
 			case LibGuiIDs.ID_CREST_EDITOR :
 				return new GuiCrestCreator(player.getCurrentEquippedItem());
+
+			case LibGuiIDs.ID_NEW_KINGDOM :
+				return new GuiKingdomCreator();
 		}
 
 		return null;

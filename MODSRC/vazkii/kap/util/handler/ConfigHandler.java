@@ -38,7 +38,7 @@ public final class ConfigHandler {
 		LibItemIDs.idItemHeraldry = loadItem(LibItemNames.NAME_ITEM_HERALDRY, LibItemIDs.DEFAULT_ITEM_HERALDRY);
 		LibItemIDs.idKingdomScroll = loadItem(LibItemNames.NAME_KINGDOM_SCROLL, LibItemIDs.DEFAULT_KINGDOM_SCROLL);
 		LibItemIDs.idVassalScroll = loadItem(LibItemNames.NAME_VASSAL_SCROLL, LibItemIDs.DEFAULT_VASSAL_SCROLL);
-		
+
 		LibBlockIDs.idBlockHeraldry = loadBlock(LibBlockNames.NAME_HERALDRY_BLOCK, LibBlockIDs.DEFAULT_BLOCK_HERALDRY);
 
 		config.save();

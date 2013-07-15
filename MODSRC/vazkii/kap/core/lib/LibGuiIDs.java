@@ -13,5 +13,6 @@ package vazkii.kap.core.lib;
 public final class LibGuiIDs {
 
 	public static final int ID_CREST_EDITOR = 0;
+	public static final int ID_NEW_KINGDOM = 1;
 
 }

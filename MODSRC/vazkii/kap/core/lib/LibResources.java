@@ -28,6 +28,7 @@ public final class LibResources {
 
 	public static final String GUI_INDICATORS = PREFIX_GUI + "indicators.png";
 	public static final String GUI_SIDE_TAB = PREFIX_GUI + "sideTab.png";
+	public static final String GUI_NEW_KINGDOM = PREFIX_GUI + "newKingdom.png";
 
 	public static final String ICON_HERALDRY_0 = PREFIX_ICONS + "heraldry0.png";
 	public static final String ICON_HERALDRY_1 = PREFIX_ICONS + "heraldry1.png";

@@ -30,4 +30,8 @@ public class CrestData implements Serializable {
 		return data;
 	}
 
+	public CrestData copy() {
+		return new CrestData(color1, color2, icon);
+	}
+
 }
