@@ -18,7 +18,7 @@ import vazkii.kap.core.lib.LibGuiIDs;
 import vazkii.kap.core.lib.LibItemNames;
 import vazkii.kap.core.lib.LibResources;
 import vazkii.kap.util.handler.KAPCreativeTab;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,18 +110,18 @@ public class ItemHeraldry extends Item {
 		return false;
 	}
 
-	public static void writeCrestData(ItemStack stack, CrestDataStorage data) {
+	public static void writeCrestData(ItemStack stack, CrestData data) {
 		if(!stack.hasTagCompound())
 			stack.setTagCompound(new NBTTagCompound());
 
 		data.writeToCmp(stack.getTagCompound());
 	}
 
-	public static CrestDataStorage readCrestData(ItemStack stack) {
+	public static CrestData readCrestData(ItemStack stack) {
 		if(!stack.hasTagCompound())
 			return null;
 
-		return CrestDataStorage.readFromCmp(stack.getTagCompound());
+		return CrestData.readFromCmp(stack.getTagCompound());
 	}
 
 	@Override

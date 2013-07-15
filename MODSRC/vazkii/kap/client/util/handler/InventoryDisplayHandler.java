@@ -27,7 +27,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.kap.client.util.helper.RenderHelper;
 import vazkii.kap.core.lib.LibResources;
-import vazkii.kap.util.storage.PlayerDataStorage;
+import vazkii.kap.util.storage.PlayerStats;
 
 public final class InventoryDisplayHandler {
 
@@ -36,7 +36,7 @@ public final class InventoryDisplayHandler {
 		if(mc.currentScreen != null && mc.currentScreen instanceof GuiInventory || mc.currentScreen instanceof GuiContainerCreative) {
 			boolean creative = mc.currentScreen instanceof GuiContainerCreative;
 
-			if(PlayerDataStorage.clientData == null || creative && ((GuiContainerCreative) mc.currentScreen).getCurrentTabIndex() != CreativeTabs.tabInventory.getTabIndex())
+			if(PlayerStats.clientData == null || creative && ((GuiContainerCreative) mc.currentScreen).getCurrentTabIndex() != CreativeTabs.tabInventory.getTabIndex())
 				return;
 
 			ScaledResolution res = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
@@ -65,12 +65,12 @@ public final class InventoryDisplayHandler {
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawIcon(x, y, 0);
 			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
-				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.GOLD + "Gold: " + PlayerDataStorage.clientData.getGold()));
+				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.GOLD + "Gold: " + PlayerStats.clientData.getGold()));
 			y += 16;
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			drawIcon(x, y, 1);
 			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
-				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Renown: " + PlayerDataStorage.clientData.getReputation()));
+				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Renown: " + PlayerStats.clientData.getReputation()));
 		}
 	}
 

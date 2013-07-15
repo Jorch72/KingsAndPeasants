@@ -15,20 +15,20 @@ import vazkii.kap.core.lib.LibResources;
 import vazkii.kap.item.ItemHeraldry;
 import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.packet.PacketHeraldrySet;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GuiCrestCreator extends GuiScreen {
 
 	GuiCrestList list;
-	public CrestDataStorage currentCrest = new CrestDataStorage(0x000000, 0xFFFFFF, (short) 0);
+	public CrestData currentCrest = new CrestData(0x000000, 0xFFFFFF, (short) 0);
 
 	GuiSlider[] color1Sliders;
 	GuiSlider[] color2Sliders;
 
 	public GuiCrestCreator(ItemStack stack) {
 		if(stack != null) {
-			CrestDataStorage tempData = ItemHeraldry.readCrestData(stack);
+			CrestData tempData = ItemHeraldry.readCrestData(stack);
 			if(tempData != null)
 				currentCrest = tempData;
 		}
@@ -121,7 +121,7 @@ public class GuiCrestCreator extends GuiScreen {
 		super.updateScreen();
 	}
 
-	public void updateSliders(CrestDataStorage crest) {
+	public void updateSliders(CrestData crest) {
 		for(int i = 0; i < color1Sliders.length; i++) {
 			GuiSlider slider = color1Sliders[i];
 			slider.sliderValue = (crest.color1 >> 16 - i * 8 & 0xFF) / 255F;

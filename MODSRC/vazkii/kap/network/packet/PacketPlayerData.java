@@ -14,7 +14,7 @@ import net.minecraft.network.INetworkManager;
 import vazkii.kap.client.hud.HUDStatPopup;
 import vazkii.kap.client.hud.HUDStatPopup.Entry;
 import vazkii.kap.network.IPacket;
-import vazkii.kap.util.storage.PlayerDataStorage;
+import vazkii.kap.util.storage.PlayerStats;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,17 +22,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PacketPlayerData implements IPacket {
 
 	private static final long serialVersionUID = -3757567626661917375L;
-	public PlayerDataStorage data;
+	public PlayerStats data;
 
-	public PacketPlayerData(PlayerDataStorage data) {
+	public PacketPlayerData(PlayerStats data) {
 		this.data = data;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handle_client(INetworkManager manager, Player player) {
-		PlayerDataStorage oldData = PlayerDataStorage.clientData;
-		PlayerDataStorage.clientData = data;
+		PlayerStats oldData = PlayerStats.clientData;
+		PlayerStats.clientData = data;
 
 		if(oldData == null)
 			return;

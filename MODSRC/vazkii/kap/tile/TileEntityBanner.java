@@ -7,11 +7,11 @@ import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.packet.PacketHeraldrySync;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 
 public class TileEntityBanner extends TileEntity {
 
-	@NBTManaged("crest") public CrestDataStorage data = new CrestDataStorage(0xFFFFFF, 0xFFFFFF, (short) -1);
+	@NBTManaged("crest") public CrestData data = new CrestData(0xFFFFFF, 0xFFFFFF, (short) -1);
 	@NBTManaged("locked") public boolean locked;
 
 	@Override

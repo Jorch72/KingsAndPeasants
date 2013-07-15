@@ -22,15 +22,15 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import vazkii.kap.core.lib.LibResources;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 
 public class RenderHelper {
 
-	public static void renderCrest(CrestDataStorage crest, double x, double y, double z) {
+	public static void renderCrest(CrestData crest, double x, double y, double z) {
 		renderCrest(crest, x, y, z, true);
 	}
 
-	public static void renderCrest(CrestDataStorage crest, double x, double y, double z, boolean bg) {
+	public static void renderCrest(CrestData crest, double x, double y, double z, boolean bg) {
 		GL11.glPushMatrix();
 
 		int ssx = crest.icon % 32;

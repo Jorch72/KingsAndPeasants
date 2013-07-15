@@ -29,23 +29,23 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public final class PlayerDataStorage implements Serializable {
+public final class PlayerStats implements Serializable {
 
 	private static final long serialVersionUID = 2380689066353733906L;
 
 	private static final String TAG_NAME = LibMisc.MOD_ID + "_PlayerData";
 
-	public static final Map<String, PlayerDataStorage> playerData = new HashMap();
+	public static final Map<String, PlayerStats> playerData = new HashMap();
 
 	private transient String username;
 
 	@SideOnly(Side.CLIENT)
-	public static PlayerDataStorage clientData;
+	public static PlayerStats clientData;
 
 	@NBTManaged("gold") private int gold;
 	@NBTManaged("rep") private int rep;
 
-	public PlayerDataStorage(String username) {
+	public PlayerStats(String username) {
 		this.username = username;
 	}
 
@@ -100,7 +100,7 @@ public final class PlayerDataStorage implements Serializable {
 	public static void playerLogin(EntityPlayer player) {
 		NBTTagCompound cmp = player.getEntityData();
 		if(!cmp.hasKey(TAG_NAME)) {
-			PlayerDataStorage storage = new PlayerDataStorage(player.username);
+			PlayerStats storage = new PlayerStats(player.username);
 			playerData.put(player.username, storage);
 
 			NBTTagCompound cmp1 = new NBTTagCompound();
@@ -109,12 +109,12 @@ public final class PlayerDataStorage implements Serializable {
 		} else {
 			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_NAME);
 
-			PlayerDataStorage storage = new PlayerDataStorage(player.username);
+			PlayerStats storage = new PlayerStats(player.username);
 			NBTManager.loadType(cmp1, storage);
 			playerData.put(player.username, storage);
 		}
 
-		PlayerDataStorage data = playerData.get(player.username);
+		PlayerStats data = playerData.get(player.username);
 		PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(data)), (Player) player);
 	}
 

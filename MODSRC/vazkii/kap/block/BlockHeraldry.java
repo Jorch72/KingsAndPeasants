@@ -16,7 +16,7 @@ import net.minecraftforge.common.ForgeDirection;
 import vazkii.kap.item.ItemHeraldry;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.tile.TileEntityBanner;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -47,7 +47,7 @@ public class BlockHeraldry extends BlockContainer {
 				if(banner.locked) {
 					par5EntityPlayer.addChatMessage("This banner is locked. Shift-Right click with an empty hand to unlock it.");
 				} else {
-					CrestDataStorage data = ItemHeraldry.readCrestData(stack);
+					CrestData data = ItemHeraldry.readCrestData(stack);
 					((TileEntityBanner) tile).data = data;
 					PacketDispatcher.sendPacketToAllInDimension(tile.getDescriptionPacket(), par5EntityPlayer.dimension);
 				}

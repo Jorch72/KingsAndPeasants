@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.kap.client.util.helper.RenderHelper;
 import vazkii.kap.core.lib.LibResources;
 import vazkii.kap.core.proxy.ClientProxy;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 
 public class GuiCrestList extends GuiSlot {
 
@@ -47,7 +47,7 @@ public class GuiCrestList extends GuiSlot {
 
 	@Override
 	protected void drawSlot(int i, int j, int k, int l, Tessellator tessellator) {
-		CrestDataStorage crest = new CrestDataStorage(0, 0xFFFFFF, (short) i);
+		CrestData crest = new CrestData(0, 0xFFFFFF, (short) i);
 		GL11.glScalef(0.5F, 0.5F, 0.5F);
 		RenderHelper.renderCrest(crest, (j + 10) * 2, k * 2, parent.zLevel() + 0.1);
 		GL11.glScalef(2F, 2F, 2F);

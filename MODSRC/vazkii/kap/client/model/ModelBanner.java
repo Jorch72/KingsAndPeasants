@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.kap.client.util.helper.RenderHelper;
 import vazkii.kap.core.lib.LibResources;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 
 public class ModelBanner extends ModelBase {
 
@@ -53,7 +53,7 @@ public class ModelBanner extends ModelBase {
 		BannerBar.mirror = true;
 	}
 
-	public void render(boolean full, CrestDataStorage crest) {
+	public void render(boolean full, CrestData crest) {
 		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.MODEL_BANNER));
 		if(full) {
 			BannerHold.render(0.0625F);

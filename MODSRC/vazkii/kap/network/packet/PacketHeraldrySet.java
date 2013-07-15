@@ -16,7 +16,7 @@ import net.minecraft.network.INetworkManager;
 import vazkii.kap.item.ItemHeraldry;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.network.IPacket;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PacketHeraldrySet implements IPacket {
 
 	private static final long serialVersionUID = 2520406953653403270L;
-	CrestDataStorage crest;
+	CrestData crest;
 
-	public PacketHeraldrySet(CrestDataStorage crest) {
+	public PacketHeraldrySet(CrestData crest) {
 		this.crest = crest;
 	}
 

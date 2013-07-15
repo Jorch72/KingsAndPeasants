@@ -17,7 +17,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.packet.PacketPlayerData;
-import vazkii.kap.util.storage.PlayerDataStorage;
+import vazkii.kap.util.storage.PlayerStats;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -28,7 +28,7 @@ public final class MobStatHandler {
 		if(!event.entityLiving.worldObj.isRemote && event.source.getSourceOfDamage() instanceof EntityPlayer && event.entityLiving instanceof EntityLiving) {
 			EntityPlayer player = (EntityPlayer) event.source.getSourceOfDamage();
 
-			PlayerDataStorage data = PlayerDataStorage.playerData.get(player.username);
+			PlayerStats data = PlayerStats.playerData.get(player.username);
 			int xp = ((EntityLiving) event.entityLiving).experienceValue;
 
 			data.setGold(data.getGold() + xp);

@@ -11,12 +11,12 @@
 package vazkii.kap.network.packet;
 
 import vazkii.kap.tile.TileEntityBanner;
-import vazkii.kap.util.storage.CrestDataStorage;
+import vazkii.kap.util.storage.CrestData;
 
 public class PacketHeraldrySync extends PacketTileSync<TileEntityBanner> {
 
 	private static final long serialVersionUID = -2620216309990152212L;
-	CrestDataStorage crest;
+	CrestData crest;
 
 	public PacketHeraldrySync(TileEntityBanner tile) {
 		super(tile);

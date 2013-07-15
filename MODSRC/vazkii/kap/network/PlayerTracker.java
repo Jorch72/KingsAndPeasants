@@ -11,19 +11,19 @@
 package vazkii.kap.network;
 
 import net.minecraft.entity.player.EntityPlayer;
-import vazkii.kap.util.storage.PlayerDataStorage;
+import vazkii.kap.util.storage.PlayerStats;
 import cpw.mods.fml.common.IPlayerTracker;
 
 public class PlayerTracker implements IPlayerTracker {
 
 	@Override
 	public void onPlayerLogin(EntityPlayer player) {
-		PlayerDataStorage.playerLogin(player);
+		PlayerStats.playerLogin(player);
 	}
 
 	@Override
 	public void onPlayerLogout(EntityPlayer player) {
-		PlayerDataStorage.playerLogout(player);
+		PlayerStats.playerLogout(player);
 	}
 
 	@Override
