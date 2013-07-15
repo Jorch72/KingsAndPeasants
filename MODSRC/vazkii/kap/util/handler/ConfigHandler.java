@@ -8,7 +8,7 @@
  *
  * File Created @ [15 Jul 2013, 01:38:40 (GMT)]
  */
-package vazkii.kap.client.util.handler;
+package vazkii.kap.util.handler;
 
 import java.io.File;
 

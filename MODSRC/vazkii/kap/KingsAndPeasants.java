@@ -13,12 +13,12 @@ package vazkii.kap;
 import java.util.logging.Logger;
 
 import vazkii.kap.block.ModBlocks;
-import vazkii.kap.client.util.handler.ConfigHandler;
 import vazkii.kap.core.lib.LibMisc;
 import vazkii.kap.core.proxy.CommonProxy;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.PlayerTracker;
+import vazkii.kap.util.handler.ConfigHandler;
 import vazkii.kap.util.handler.GuiHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;

@@ -23,8 +23,8 @@ import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
 
-import vazkii.kap.client.util.handler.ConfigHandler;
 import vazkii.kap.client.util.handler.InventoryDisplayHandler;
+import vazkii.kap.util.handler.ConfigHandler;
 
 public class HUDStatPopup {
 
