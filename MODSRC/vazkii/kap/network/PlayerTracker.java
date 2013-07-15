@@ -12,6 +12,8 @@ package vazkii.kap.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import vazkii.kap.network.packet.PacketKingdomSync;
+import vazkii.kap.network.packet.PacketPlayerData;
+import vazkii.kap.util.handler.ConfigHandler;
 import vazkii.kap.util.storage.KingdomData;
 import vazkii.kap.util.storage.KingdomList;
 import vazkii.kap.util.storage.PlayerStats;
@@ -36,10 +38,16 @@ public class PlayerTracker implements IPlayerTracker {
 
 	@Override
 	public void onPlayerChangedDimension(EntityPlayer player) {
+		// NO-OP
 	}
 
 	@Override
 	public void onPlayerRespawn(EntityPlayer player) {
+		PlayerStats stats = PlayerStats.playerData.get(player.username);
+		stats.setGold(stats.getGold() - (int) (stats.getGold() * ConfigHandler.deathGoldLoss));
+		stats.setReputation(stats.getReputation() - (int) (stats.getReputation() * ConfigHandler.deathRepLoss)); 
+		
+		PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketPlayerData(stats)), (Player) player);
 	}
 
 }
