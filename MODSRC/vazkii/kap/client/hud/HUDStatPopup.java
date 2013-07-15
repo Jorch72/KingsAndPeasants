@@ -91,7 +91,6 @@ public class HUDStatPopup {
 		for(Entry entry : removeEntries)
 			entries.remove(entry);
 
-
 		if(!entriesWaiting.isEmpty() && !foundIllegal) {
 			Entry waitingEntry = entriesWaiting.get(0);
 			entries.put(waitingEntry, STAY_TIME);

@@ -32,8 +32,6 @@ public final class PacketManager implements IPacketHandler {
 			ObjectInputStream objStream = new ObjectInputStream(byteStream);
 			IPacket ipacket = (IPacket) objStream.readObject();
 
-			System.out.println(ipacket);
-
 			KingsAndPeasants.proxy.packetHandle(manager, ipacket, player);
 		} catch(Throwable e) {
 			e.printStackTrace();

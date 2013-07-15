@@ -62,7 +62,7 @@ public class ModelBanner extends ModelBase {
 		}
 
 		BannerBar.render(0.0625F);
-		if(crest != null) {
+		if(crest != null && crest.icon >= 0) {
 			GL11.glPushMatrix();
 			float scale = 92F;
 			float dimScale = 1F / scale;

@@ -134,7 +134,7 @@ public final class NBTManager {
 			field.set(type, cmp.getIntArray(tag));
 		else {
 			NBTTagCompound cmp1 = cmp.getCompoundTag(tag);
-			loadType(cmp1, type);
+			loadType(cmp1, field.get(type));
 		}
 	}
 }
