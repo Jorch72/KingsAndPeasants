@@ -19,8 +19,11 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.kap.core.lib.LibResources;
+import vazkii.kap.network.PacketManager;
+import vazkii.kap.network.packet.PacketCreateNewKingdom;
 import vazkii.kap.util.storage.CrestData;
 import vazkii.kap.util.storage.KingdomData;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class GuiKingdomCreator extends GuiScreen {
 
@@ -68,11 +71,22 @@ public class GuiKingdomCreator extends GuiScreen {
 	}
 
 	@Override
+	public void updateScreen() {
+		super.updateScreen();
+
+		((GuiButton) buttonList.get(1)).enabled = !textField.getText().isEmpty();
+	}
+
+	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
 		super.actionPerformed(par1GuiButton);
 
 		if(par1GuiButton.id == 0)
 			mc.displayGuiScreen(new GuiCrestCreatorKingdom(this));
+		else {
+			PacketDispatcher.sendPacketToServer(PacketManager.buildPacket(new PacketCreateNewKingdom(kingdom)));
+			mc.displayGuiScreen(null);
+		}
 	}
 
 	@Override

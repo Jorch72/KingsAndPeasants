@@ -18,14 +18,17 @@ import vazkii.kap.core.proxy.CommonProxy;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.network.PacketManager;
 import vazkii.kap.network.PlayerTracker;
+import vazkii.kap.util.handler.CacheHelper;
 import vazkii.kap.util.handler.ConfigHandler;
 import vazkii.kap.util.handler.GuiHandler;
+import vazkii.kap.util.storage.KingdomList;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -64,5 +67,10 @@ public final class KingsAndPeasants {
 		GameRegistry.registerPlayerTracker(new PlayerTracker());
 
 		proxy.readIconNames();
+	}
+
+	@EventHandler
+	public void serverStarted(FMLServerStartedEvent event) {
+		KingdomList.readFromNBT(CacheHelper.getCacheCompound());
 	}
 }

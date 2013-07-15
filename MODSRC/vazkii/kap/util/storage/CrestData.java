@@ -34,4 +34,7 @@ public class CrestData implements Serializable {
 		return new CrestData(color1, color2, icon);
 	}
 
+	public boolean equals(CrestData data) {
+		return color1 == data.color1 && color2 == data.color2 && icon == data.icon;
+	}
 }
