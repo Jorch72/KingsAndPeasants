@@ -13,8 +13,12 @@ package vazkii.kap.core.lib;
 public final class LibItemNames {
 
 	public static final String NAME_ITEM_HERALDRY = "itemHeraldry";
+	public static final String NAME_KINGDOM_SCROLL = "kingdomScroll";
+	public static final String NAME_VASSAL_SCROLL = "vassalScroll";
 
 	public static final String DISPLAY_NAME_SCROLL = "Heraldic Scroll";
 	public static final String DISPLAY_NAME_BANNER = "Heraldic Banner";
 	public static final String DISPLAY_NAME_WALL_BANNER = "Heraldic Wall Banner";
+	public static final String DISPLAY_NAME_KINGDOM_SCROLL = "Scroll of Kingship";
+	public static final String DISPLAY_NAME_VASSAL_SCROLL = "Scroll of Allegiance";
 }

@@ -10,6 +10,7 @@
  */
 package vazkii.kap.item;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.item.Item;
 import vazkii.kap.core.lib.LibItemIDs;
 import vazkii.kap.core.lib.LibItemNames;
@@ -17,14 +18,19 @@ import vazkii.kap.core.lib.LibItemNames;
 public final class ModItems {
 
 	public static Item heraldryItem;
+	public static Item kingdomScroll;
+	public static Item vassalScroll;
 
 	public static void init() {
 		heraldryItem = new ItemHeraldry(LibItemIDs.idItemHeraldry).setUnlocalizedName(LibItemNames.NAME_ITEM_HERALDRY);
-
+		kingdomScroll = new ItemKingdomScroll(LibItemIDs.idKingdomScroll).setUnlocalizedName(LibItemNames.NAME_KINGDOM_SCROLL);
+		vassalScroll = new ItemVassalScroll(LibItemIDs.idVassalScroll).setUnlocalizedName(LibItemNames.NAME_VASSAL_SCROLL);
+		
 		nameItems();
 	}
 
 	private static void nameItems() {
-
+		LanguageRegistry.addName(kingdomScroll, LibItemNames.DISPLAY_NAME_KINGDOM_SCROLL);
+		LanguageRegistry.addName(vassalScroll, LibItemNames.DISPLAY_NAME_VASSAL_SCROLL);
 	}
 }

@@ -11,9 +11,13 @@
 package vazkii.kap.core.lib;
 
 public final class LibItemIDs {
-
+	
 	public static final int DEFAULT_ITEM_HERALDRY = 9240;
-
+	public static final int DEFAULT_KINGDOM_SCROLL = 9241;
+	public static final int DEFAULT_VASSAL_SCROLL = 9242;
+	
 	public static int idItemHeraldry;
+	public static int idKingdomScroll;
+	public static int idVassalScroll;
 
 }
