@@ -45,12 +45,12 @@ public class GuiKingdomInfo extends GuiScreen {
             int xCenter = k + xSize / 2;
             drawCenteredString(fontRenderer, name, k + xSize / 2, l + 10, 0xFFFFFF);
             int size = fontRenderer.getStringWidth(name) / 2;
-            
+
             fontRenderer.drawStringWithShadow("King: " + kingdom.owner, k + 8, l + 100, 0xFFFFFF);
             fontRenderer.drawStringWithShadow("Tier: " + kingdom.tier, k + 8, l + 112, 0xFFFFFF);
             fontRenderer.drawStringWithShadow("Population: " + (kingdom.population.size() + 1), k + 8, l + 124, 0xFFFFFF);
             fontRenderer.drawStringWithShadow("Vassals: " + kingdom.vassals.size(), k + 8, l + 136, 0xFFFFFF);
-            
+
             fontRenderer.drawStringWithShadow("Working Population: " + 0 /* TODO */, k + 8, l + 160, 0xFFFFFF);
             fontRenderer.drawStringWithShadow("Weekly Taxes: " + 0 /* TODO */, k + 8, l + 172, 0xFFFFFF);
 
