@@ -50,7 +50,7 @@ public class GuiKingdomCreator extends GuiScreen {
 		textField = new GuiTextField(fontRenderer, xStart + 116, yStart + 52, 107, 14);
 		textField.setCanLoseFocus(false);
 		textField.setFocused(true);
-		textField.setMaxStringLength(16);
+		textField.setMaxStringLength(14);
 		textField.setEnableBackgroundDrawing(false);
 	}
 

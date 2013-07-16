@@ -17,9 +17,11 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.util.EnumChatFormatting;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.network.IPacket;
+import vazkii.kap.network.PacketManager;
 import vazkii.kap.util.handler.CacheHelper;
 import vazkii.kap.util.storage.KingdomData;
 import vazkii.kap.util.storage.KingdomList;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,7 +48,7 @@ public class PacketCreateNewKingdom implements IPacket {
 
 			EntityPlayer entityPlayer = (EntityPlayer) player;
 			ItemStack item = entityPlayer.getCurrentEquippedItem();
-			if(item == null || item.itemID != ModItems.kingdomScroll.itemID || data.name.isEmpty())
+			if(item == null || item.itemID != ModItems.kingdomScroll.itemID || data.name.isEmpty() || data.name.length() > 14)
 				return;
 
 			String error = "";
@@ -69,6 +71,8 @@ public class PacketCreateNewKingdom implements IPacket {
 				KingdomList.writeToNBT(cmp);
 
 				eplayer.inventory.setInventorySlotContents(eplayer.inventory.currentItem, null);
+				eplayer.addChatMessage(EnumChatFormatting.BLUE + "You have succesfully formed the Kingdom of " + data.name + "!");
+				PacketDispatcher.sendPacketToPlayer(PacketManager.buildPacket(new PacketKingdomSync(data)), player);
 			} else eplayer.addChatMessage(EnumChatFormatting.RED + error);
 		}
 	}

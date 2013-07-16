@@ -17,16 +17,21 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.kap.client.gui.GuiKingdomInfo;
 import vazkii.kap.client.util.helper.RenderHelper;
 import vazkii.kap.core.lib.LibResources;
+import vazkii.kap.item.ModItems;
+import vazkii.kap.util.storage.KingdomData;
 import vazkii.kap.util.storage.PlayerStats;
 
 public final class InventoryDisplayHandler {
@@ -68,6 +73,18 @@ public final class InventoryDisplayHandler {
 			drawIcon(x, y, 1);
 			if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16)
 				RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Renown: " + PlayerStats.clientData.getReputation()));
+
+			if(KingdomData.clientKingdom != null) {
+				x -= 30;
+				y-= 13;
+				RenderItem renderItem = new RenderItem();
+				renderItem.renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, new ItemStack(ModItems.kingdomScroll), x, y, false);
+				if(mouseX - x >= 0 && mouseX - x <= 16 && mouseY - y >= 0 && mouseY - y < 16) {
+					RenderHelper.renderTooltip(mouseX, mouseY, 1347420415, -267386864, Arrays.asList(EnumChatFormatting.BLUE + "Kingdom of " + KingdomData.clientKingdom.name, EnumChatFormatting.GRAY + "" + EnumChatFormatting.ITALIC + "(Click to view info)"));
+					if(Mouse.isButtonDown(0))
+						mc.displayGuiScreen(new GuiKingdomInfo());
+				}
+			}
 		}
 	}
 
