@@ -47,6 +47,7 @@ public final class ConfigHandler {
 		LibItemIDs.idVassalScroll = loadItem(LibItemNames.NAME_VASSAL_SCROLL, LibItemIDs.DEFAULT_VASSAL_SCROLL);
 
 		LibBlockIDs.idBlockHeraldry = loadBlock(LibBlockNames.NAME_HERALDRY_BLOCK, LibBlockIDs.DEFAULT_BLOCK_HERALDRY);
+		LibBlockIDs.idThrone = loadBlock(LibBlockNames.NAME_THRONE, LibBlockIDs.DEFAULT_THRONE);
 
 		deathGoldLoss = getRangedFloat(OPTION_DEATH_GOLD_LOSS, deathGoldLoss, COMMENT_DEATH_GOLD_LOSS, 0F, 1F);
 		deathRepLoss = getRangedFloat(OPTION_DEATH_REP_LOSS, deathRepLoss, COMMENT_DEATH_REP_LOSS, 0F, 1F);

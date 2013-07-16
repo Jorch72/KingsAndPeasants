@@ -13,5 +13,8 @@ package vazkii.kap.core.lib;
 public final class LibBlockNames {
 
 	public static final String NAME_HERALDRY_BLOCK = "heraldryBlock";
+	public static final String NAME_THRONE = "throne";
+
+	public static final String DISPLAY_NAME_THRONE = "Throne";
 
 }

@@ -16,6 +16,7 @@ import vazkii.kap.core.lib.LibBlockNames;
 import vazkii.kap.core.lib.LibMisc;
 import vazkii.kap.network.IPacket;
 import vazkii.kap.tile.TileEntityBanner;
+import vazkii.kap.tile.TileEntityThrone;
 import vazkii.kap.util.handler.MobStatHandler;
 import vazkii.kap.util.handler.VillagerNamingHandler;
 import cpw.mods.fml.common.network.Player;
@@ -37,6 +38,7 @@ public class CommonProxy {
 
 	public void initTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityBanner.class, tileName(LibBlockNames.NAME_HERALDRY_BLOCK));
+		GameRegistry.registerTileEntity(TileEntityThrone.class, tileName(LibBlockNames.NAME_THRONE));
 	}
 
 	public void registerSubscribers() {

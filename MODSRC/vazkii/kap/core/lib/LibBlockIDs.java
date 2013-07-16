@@ -13,7 +13,8 @@ package vazkii.kap.core.lib;
 public class LibBlockIDs {
 
 	public static final int DEFAULT_BLOCK_HERALDRY = 924;
+	public static final int DEFAULT_THRONE = 925;
 
 	public static int idBlockHeraldry;
-
+	public static int idThrone;
 }

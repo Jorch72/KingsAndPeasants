@@ -36,6 +36,7 @@ public final class LibResources {
 	public static final String ICON_HERALDRY_1 = PREFIX_ICONS + "heraldry1.png";
 
 	public static final String MODEL_BANNER = PREFIX_MODEL + "banner.png";
+	public static final String MODEL_THRONE = PREFIX_MODEL + "throne.png";
 
 	public static final String ITEM_ICON_BANNER = PREFIX_ID + "banner";
 	public static final String ITEM_ICON_SCROLL = PREFIX_ID + "scroll";

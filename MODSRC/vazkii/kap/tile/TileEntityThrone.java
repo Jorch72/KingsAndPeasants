@@ -1,22 +1,30 @@
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Kings and Peasants Mod.
+ *
+ * Kings and Peasants is Open Source and distributed under a
+ * Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License
+ * (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB)
+ *
+ * File Created @ [16 Jul 2013, 23:04:37 (GMT)]
+ */
 package vazkii.kap.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.kap.network.PacketManager;
-import vazkii.kap.network.packet.PacketHeraldrySync;
+import vazkii.kap.network.packet.PacketThroneSync;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
-import vazkii.kap.util.storage.CrestData;
 
-public class TileEntityBanner extends TileEntity {
+public class TileEntityThrone extends TileEntity {
 
-	@NBTManaged("crest") public CrestData data = new CrestData(0xFFFFFF, 0xFFFFFF, (short) -1);
-	@NBTManaged("locked") public boolean locked;
+	@NBTManaged("kingdom") public String kingdom = "";
 
 	@Override
 	public Packet getDescriptionPacket() {
-		return PacketManager.buildPacket(new PacketHeraldrySync(this));
+		return PacketManager.buildPacket(new PacketThroneSync(this));
 	}
 
 	@Override
@@ -32,4 +40,5 @@ public class TileEntityBanner extends TileEntity {
 
 		NBTManager.writeType(par1nbtTagCompound, this);
 	}
+
 }
