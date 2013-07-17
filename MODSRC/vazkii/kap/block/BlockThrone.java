@@ -13,16 +13,19 @@ package vazkii.kap.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.item.ItemHeraldry;
 import vazkii.kap.item.ModItems;
 import vazkii.kap.tile.TileEntityThrone;
@@ -32,6 +35,7 @@ import vazkii.kap.util.storage.KingdomData;
 import vazkii.kap.util.storage.KingdomList;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,6 +47,8 @@ public class BlockThrone extends BlockContainer {
 		setStepSound(soundWoodFootstep);
 		setBlockUnbreakable();
 		setCreativeTab(KAPCreativeTab.INSTANCE);
+
+		EntityRegistry.registerModEntity(Seat.class, "SEAT", Integer.MAX_VALUE, KingsAndPeasants.instance, Integer.MAX_VALUE, 8, false);
 	}
 
 	@Override
@@ -66,7 +72,8 @@ public class BlockThrone extends BlockContainer {
 				data = kingdom;
 
 		if(!par1World.isRemote) {
-			if(tile.kingdom.isEmpty()) {
+			boolean empty = tile.kingdom.isEmpty();
+			if(empty) {
 				if(data != null && !data.hasThrone(par1World) && held != null && held.itemID == Item.swordWood.itemID) {
 					tile.kingdom = data.name;
 					data.throneCoords = new Coordinates(par2, par3, par4);
@@ -74,10 +81,33 @@ public class BlockThrone extends BlockContainer {
 					PacketDispatcher.sendPacketToPlayer(tile.getDescriptionPacket(), (Player) par5EntityPlayer);
 					return true;
 				}
+			}
 
-				if(par5EntityPlayer.isSneaking() && held == null) {
-					par1World.spawnEntityInWorld(new EntityItem(par1World, par2 + 0.5, par3 + 0.5, par4 + 0.5, new ItemStack(ModBlocks.throne)));
-					par1World.setBlockToAir(par2, par3, par4);
+			if(held == null) {
+				if(par5EntityPlayer.isSneaking()) {
+					if(empty) {
+						par1World.spawnEntityInWorld(new EntityItem(par1World, par2 + 0.5, par3 + 0.5, par4 + 0.5, new ItemStack(ModBlocks.throne)));
+						par1World.setBlockToAir(par2, par3, par4);
+						return true;
+					}
+				} else {
+					boolean canSit = empty;
+					if(!canSit) {
+						for(KingdomData kingdom : KingdomList.kingdoms) {
+							if(kingdom.name.equals(tile.kingdom) && kingdom == data) {
+								canSit = true;
+								break;
+							}
+						}
+					}
+
+					System.out.println("do " + canSit);
+					if(canSit) {
+						Seat seat = new Seat(par1World, par2, par3, par4);
+						par1World.spawnEntityInWorld(seat);
+						par5EntityPlayer.mountEntity(seat);
+					}
+
 					return true;
 				}
 			}
@@ -126,5 +156,41 @@ public class BlockThrone extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileEntityThrone();
+	}
+
+	public static class Seat extends Entity {
+
+		public Seat(World world, int x, int y, int z) {
+			this(world);
+
+			setPosition(x + 0.5, y + 0.5, z + 0.5);
+		}
+
+		public Seat(World par1World) {
+			super(par1World);
+
+			setSize(0F, 0F);
+		}
+
+		@Override
+		protected void entityInit() {
+		}
+
+		@Override
+		protected void readEntityFromNBT(NBTTagCompound nbttagcompound) { }
+
+		@Override
+		protected void writeEntityToNBT(NBTTagCompound nbttagcompound) { }
+
+		@Override
+		public void onUpdate() {
+			super.onUpdate();
+
+			if(riddenByEntity == null)
+				setDead();
+
+			if((int) posY == posY) // Fix the client sometimes derping for some odd reason...
+				posY -= 1.5;
+		}
 	}
 }
