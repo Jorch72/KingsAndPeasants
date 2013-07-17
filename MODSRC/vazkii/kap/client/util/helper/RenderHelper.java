@@ -50,8 +50,8 @@ public class RenderHelper {
 
 		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.ICON_HERALDRY_1));
 		int color1 = crest.color2;
-		Color colorRGB1 = new Color(color1);
-		GL11.glColor3f(colorRGB1.getRed() / 255F, colorRGB1.getGreen() / 255F, colorRGB1.getBlue() / 255F);
+		Color colorRGB = new Color(color1);
+		GL11.glColor3f(colorRGB.getRed() / 255F, colorRGB.getGreen() / 255F, colorRGB.getBlue() / 255F);
 		drawTexturedQuad(x, y, z + 2, 64, 64, ssx * scale, (ssx + 1) * scale, ssy * scale, (ssy + 1) * scale);
 
 		if(!lightingEnabled)

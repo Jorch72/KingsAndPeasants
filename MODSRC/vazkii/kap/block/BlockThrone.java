@@ -173,8 +173,7 @@ public class BlockThrone extends BlockContainer {
 		}
 
 		@Override
-		protected void entityInit() {
-		}
+		protected void entityInit() { }
 
 		@Override
 		protected void readEntityFromNBT(NBTTagCompound nbttagcompound) { }
