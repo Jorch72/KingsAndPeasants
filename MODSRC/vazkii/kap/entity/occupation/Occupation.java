@@ -11,7 +11,9 @@
 package vazkii.kap.entity.occupation;
 
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import vazkii.kap.entity.EntityPeasant;
 
 public abstract class Occupation {
@@ -28,19 +30,20 @@ public abstract class Occupation {
 		occupations[id] = this;
 	}
 
-	public void entityInit(EntityPeasant entity) {
-
-	}
-
 	public void entityInteract(EntityPeasant entity, EntityPlayer player) {
 
 	}
 
 	public void addAI(EntityPeasant entity) {
-
+		addAI(entity, 0, new EntityAIWander(entity, 0.6F));
 	}
 
-	public boolean acceptAI(EntityPeasant entity, EntityAIBase ai) {
+	public final void addAI(EntityPeasant entity, int priority, EntityAIBase ai) {
+		if(acceptAI(entity, priority, ai))
+			entity.tasks.addTask(priority, ai);
+	}
+
+	public boolean acceptAI(EntityPeasant entity, int priority, EntityAIBase ai) {
 		return true;
 	}
 
@@ -48,11 +51,11 @@ public abstract class Occupation {
 
 	}
 
-	public void writeToNBT(EntityPeasant entity) {
+	public void writeToNBT(EntityPeasant entity, NBTTagCompound cmp) {
 
 	}
 
-	public void readFromNBT(EntityPeasant entity) {
+	public void readFromNBT(EntityPeasant entity, NBTTagCompound cmp) {
 
 	}
 

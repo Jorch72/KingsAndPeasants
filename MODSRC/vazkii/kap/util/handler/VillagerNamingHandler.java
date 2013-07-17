@@ -24,6 +24,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.core.lib.LibResources;
+import vazkii.kap.entity.EntityPeasant;
 
 public final class VillagerNamingHandler {
 
@@ -57,11 +58,11 @@ public final class VillagerNamingHandler {
 
 	@ForgeSubscribe
 	public void entityUpdate(LivingUpdateEvent event) {
-		if(event.entityLiving instanceof EntityVillager && !((EntityLiving) event.entityLiving).hasCustomNameTag())
-			applyRandomName((EntityVillager) event.entityLiving);
+		if((event.entityLiving instanceof EntityVillager || event.entityLiving instanceof EntityPeasant) && !((EntityLiving) event.entityLiving).hasCustomNameTag())
+			applyRandomName((EntityLiving) event.entityLiving);
 	}
 
-	private void applyRandomName(EntityVillager villager) {
+	private void applyRandomName(EntityLiving villager) {
 		boolean female = villager.worldObj.rand.nextBoolean();
 		List<String> mainNames = female ? femaleNames : maleNames;
 

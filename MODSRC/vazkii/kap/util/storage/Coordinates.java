@@ -13,6 +13,7 @@ package vazkii.kap.util.storage;
 import java.io.Serializable;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import vazkii.kap.util.nbt.NBTManaged;
 
@@ -41,4 +42,7 @@ public class Coordinates implements Serializable {
 		return world.getBlockTileEntity(x, y, z);
 	}
 
+	public ChunkCoordinates asChunkCoordinates() {
+		return new ChunkCoordinates(x, y, z);
+	}
 }

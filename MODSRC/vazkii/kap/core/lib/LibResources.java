@@ -25,6 +25,7 @@ public final class LibResources {
 	public static final String PREFIX_GUI = PREFIX_RESOURCE + "gui/";
 	public static final String PREFIX_ICONS = PREFIX_RESOURCE + "icons/";
 	public static final String PREFIX_MODEL = PREFIX_RESOURCE + "model/";
+	public static final String PREFIX_PEOPLE = PREFIX_RESOURCE + "people/";
 
 	public static final String GUI_INDICATORS = PREFIX_GUI + "indicators.png";
 	public static final String GUI_SIDE_TAB = PREFIX_GUI + "sideTab.png";
@@ -43,6 +44,8 @@ public final class LibResources {
 	public static final String ITEM_ICON_WALL_BANNER = PREFIX_ID + "wallBanner";
 	public static final String ITEM_ICON_KINGDOM_SCROLL = PREFIX_ID + "scrollKingdom";
 	public static final String ITEM_ICON_VASSAL_SCROLL = PREFIX_ID + "scrollVassal";
+
+	public static final String OCCUPATION_TEXTURE_PEASANT = "peasant.png";
 
 	public static final int ICON_COUNT = 876;
 }
