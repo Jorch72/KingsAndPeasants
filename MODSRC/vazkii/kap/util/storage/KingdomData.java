@@ -49,7 +49,7 @@ public class KingdomData implements Serializable {
 	}
 
 	public boolean hasThrone(World world) {
-		return throneCoords.y >= 256 && throneCoords.y < 0 && throneCoords.getBlockID(world) == ModBlocks.throne.blockID && ((TileEntityThrone) throneCoords.getTileEntity(world)).kingdom.equals(name);
+		return throneCoords.y <= 256 && throneCoords.y > 0 && throneCoords.getBlockID(world) == ModBlocks.throne.blockID && ((TileEntityThrone) throneCoords.getTileEntity(world)).kingdom.equals(name);
 	}
 
 	public void writeToNBT(NBTTagCompound cmp) {
