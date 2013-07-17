@@ -29,6 +29,7 @@ public class RenderTileBanner extends TileEntitySpecialRenderer {
 			GL11.glTranslatef(-0.57F, 0.85F, 0F);
 		} else GL11.glRotatef(BlockHeraldry.getOrientation(meta) * 45F, 0F, 1F, 0F);
 
+		GL11.glEnable(GL11.GL_LIGHTING);
 		model.render(!hanging, banner.data);
 		GL11.glScalef(1F, -1F, -1F);
 		GL11.glPopMatrix();

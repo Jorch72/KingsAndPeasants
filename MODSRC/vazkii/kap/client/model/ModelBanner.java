@@ -70,7 +70,7 @@ public class ModelBanner extends ModelBase {
 			GL11.glRotatef(180F, 0F, 1F, 0F);
 			GL11.glTranslatef(-0.35F, 0F, -0.158F);
 			GL11.glScalef(dimScale, dimScale, dimScale);
-			RenderHelper.renderCrest(crest, 0, 2, 0, false);
+			RenderHelper.renderCrest(crest, 0, 2, 0, false, true);
 			Color color = new Color(crest.color1);
 			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 			GL11.glPopMatrix();

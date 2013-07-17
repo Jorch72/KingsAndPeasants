@@ -13,12 +13,21 @@ package vazkii.kap.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import vazkii.kap.item.ItemHeraldry;
+import vazkii.kap.item.ModItems;
 import vazkii.kap.tile.TileEntityThrone;
 import vazkii.kap.util.handler.KAPCreativeTab;
+import vazkii.kap.util.storage.Coordinates;
 import vazkii.kap.util.storage.KingdomData;
 import vazkii.kap.util.storage.KingdomList;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -37,21 +46,46 @@ public class BlockThrone extends BlockContainer {
 	}
 
 	@Override
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+		int l = MathHelper.floor_double(par5EntityLivingBase.rotationYaw * 4D / 360D + 0.5D) & 3;
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
+
+		if(par5EntityLivingBase instanceof EntityPlayer && !par1World.isRemote)
+			((EntityPlayer) par5EntityLivingBase).addChatMessage("You have placed a throne, to bind it to your kingdom Right click it with a wooden sword in your hand. To remove it Shift-Right click it with an empty hand. " + EnumChatFormatting.RED + "Note: The throne can NOT BE REMOVED after it's bound to the kingdom.");
+	}
+
+	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		TileEntityThrone tile = (TileEntityThrone) par1World.getBlockTileEntity(par2, par3, par4);
+		ItemStack held = par5EntityPlayer.getCurrentEquippedItem();
 
-		if(tile.kingdom.isEmpty()) {
-			KingdomData data = null;
+		KingdomData data = null;
 
-			for(KingdomData kingdom : KingdomList.kingdoms)
-				if(kingdom.owner.equals(par5EntityPlayer.username))
-					data = kingdom;
+		for(KingdomData kingdom : KingdomList.kingdoms)
+			if(kingdom.owner.equals(par5EntityPlayer.username))
+				data = kingdom;
 
-			if(data != null) {
-				tile.kingdom = data.name;
-				PacketDispatcher.sendPacketToPlayer(tile.getDescriptionPacket(), (Player) par5EntityPlayer);
-				return true;
+		if(!par1World.isRemote) {
+			if(tile.kingdom.isEmpty()) {
+				if(data != null && !data.hasThrone(par1World) && held != null && held.itemID == Item.swordWood.itemID) {
+					tile.kingdom = data.name;
+					data.throneCoords = new Coordinates(par2, par3, par4);
+					par5EntityPlayer.addChatMessage(EnumChatFormatting.BLUE + "Throne successfuly bound to the Kingdom of " + tile.kingdom + ".");
+					PacketDispatcher.sendPacketToPlayer(tile.getDescriptionPacket(), (Player) par5EntityPlayer);
+					return true;
+				}
+
+				if(par5EntityPlayer.isSneaking() && held == null) {
+					par1World.spawnEntityInWorld(new EntityItem(par1World, par2 + 0.5, par3 + 0.5, par4 + 0.5, new ItemStack(ModBlocks.throne)));
+					par1World.setBlockToAir(par2, par3, par4);
+					return true;
+				}
 			}
+		}
+
+		if(data != null && tile.kingdom.equals(data.name) && held != null && held.itemID == ModItems.heraldryItem.itemID && held.getItemDamage() == 0) {
+			ItemHeraldry.writeCrestData(held, data.crest);
+			return true;
 		}
 
 		return false;

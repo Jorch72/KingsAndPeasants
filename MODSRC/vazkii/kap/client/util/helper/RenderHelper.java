@@ -27,11 +27,15 @@ import vazkii.kap.util.storage.CrestData;
 public class RenderHelper {
 
 	public static void renderCrest(CrestData crest, double x, double y, double z) {
-		renderCrest(crest, x, y, z, true);
+		renderCrest(crest, x, y, z, true, false);
 	}
 
-	public static void renderCrest(CrestData crest, double x, double y, double z, boolean bg) {
+	public static void renderCrest(CrestData crest, double x, double y, double z, boolean bg, boolean lighting) {
 		GL11.glPushMatrix();
+
+		boolean lightingEnabled = GL11.glGetBoolean(GL11.GL_LIGHTING);
+
+		GL11.glDisable(GL11.GL_LIGHTING);
 
 		int ssx = crest.icon % 32;
 		int ssy = crest.icon / 32;
@@ -47,12 +51,11 @@ public class RenderHelper {
 		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.ICON_HERALDRY_1));
 		int color1 = crest.color2;
 		Color colorRGB1 = new Color(color1);
-		if(!bg)
-			GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glColor3f(colorRGB1.getRed() / 255F, colorRGB1.getGreen() / 255F, colorRGB1.getBlue() / 255F);
-		GL11.glDisable(GL11.GL_LIGHTING);
 		drawTexturedQuad(x, y, z + 2, 64, 64, ssx * scale, (ssx + 1) * scale, ssy * scale, (ssy + 1) * scale);
 
+		if(!lightingEnabled)
+			GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
 	}
 

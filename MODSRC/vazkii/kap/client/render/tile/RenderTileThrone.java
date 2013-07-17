@@ -23,12 +23,20 @@ import vazkii.kap.util.storage.KingdomList;
 
 public class RenderTileThrone extends TileEntitySpecialRenderer {
 
+	private static final float[] ROTATIONS = new float[] {
+		180F, 90F, 0F, 270F
+	};
+
 	ModelThrone model = new ModelThrone();
 
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		GL11.glPushMatrix();
+		int meta = tileentity.getBlockMetadata();
 		GL11.glTranslated(d0, d1, d2);
+		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		GL11.glRotatef(meta >= ROTATIONS.length ? 45F : ROTATIONS[meta], 0F, 1F, 0F);
+		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
 		GL11.glRotatef(180F, 1F, 0F, 0F);
 		CrestData data = new CrestData(0, 0, (short) -1);
@@ -37,6 +45,7 @@ public class RenderTileThrone extends TileEntitySpecialRenderer {
 			if(kingdom.name.equals(throne.kingdom))
 				data = kingdom.crest;
 
+		GL11.glEnable(GL11.GL_LIGHTING);
 		model.render(data);
 		GL11.glPopMatrix();
 	}

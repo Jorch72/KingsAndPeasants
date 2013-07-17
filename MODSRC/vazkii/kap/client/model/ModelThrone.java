@@ -95,7 +95,6 @@ public class ModelThrone extends ModelBase {
 		LeftLeanTop.render(0.0625F);
 		BackLeanBottom.render(0.0625F);
 		BackLeanMiddle.render(0.0625F);
-		BackLeanTop.render(0.0625F);
 		BackLeanSpike1.render(0.0625F);
 		BackLeanSpike2.render(0.0625F);
 		BackLeanSpike3.render(0.0625F);
@@ -112,9 +111,13 @@ public class ModelThrone extends ModelBase {
 			GL11.glRotatef(-90F, 0F, 1F, 0F);
 			GL11.glTranslatef(-0.22F, -0.05F, 0.361F);
 			GL11.glScalef(dimScale, dimScale, dimScale);
-			RenderHelper.renderCrest(crest, 0, 2, 0);
-			GL11.glEnable(GL11.GL_LIGHTING);
+			RenderHelper.renderCrest(crest, 0, 2, 0, true, true);
 			GL11.glPopMatrix();
 		}
+
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation(LibResources.MODEL_THRONE));
+
+		BackLeanTop.render(0.0625F);
 	}
 }

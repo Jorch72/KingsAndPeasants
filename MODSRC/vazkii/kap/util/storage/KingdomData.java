@@ -17,6 +17,9 @@ import java.util.List;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.world.World;
+import vazkii.kap.block.ModBlocks;
+import vazkii.kap.tile.TileEntityThrone;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
 import cpw.mods.fml.relauncher.Side;
@@ -24,10 +27,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class KingdomData implements Serializable {
 
+	private static final long serialVersionUID = 8858112042694418941L;
+
 	@SideOnly(Side.CLIENT)
 	public static KingdomData clientKingdom;
 
-	private static final long serialVersionUID = 5797594957265101922L;
 	@NBTManaged("crest") public CrestData crest = new CrestData(0xFFFFFF, 0xFFFFFF, (short) -1);
 	@NBTManaged("name") public String name;
 	@NBTManaged("owner") public String owner;
@@ -36,10 +40,16 @@ public class KingdomData implements Serializable {
 	public List<String> vassals = new ArrayList();
 	public List<String> population = new ArrayList();
 
+	@NBTManaged("throneCoords") public Coordinates throneCoords = new Coordinates(0, Integer.MAX_VALUE, 0);
+
 	public KingdomData(CrestData crest, String name, String owner) {
 		this.crest = crest;
 		this.name = name;
 		this.owner = owner;
+	}
+
+	public boolean hasThrone(World world) {
+		return throneCoords.y >= 256 && throneCoords.y < 0 && throneCoords.getBlockID(world) == ModBlocks.throne.blockID && ((TileEntityThrone) throneCoords.getTileEntity(world)).kingdom.equals(name);
 	}
 
 	public void writeToNBT(NBTTagCompound cmp) {
