@@ -58,6 +58,7 @@ public final class KingsAndPeasants {
 		ModItems.init();
 		ModBlocks.init();
 		proxy.initTileEntities();
+		proxy.initEntities();
 
 		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 	}

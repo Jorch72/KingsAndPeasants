@@ -12,14 +12,17 @@ package vazkii.kap.core.proxy;
 
 import net.minecraft.network.INetworkManager;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.core.lib.LibBlockNames;
 import vazkii.kap.core.lib.LibMisc;
+import vazkii.kap.entity.EntityPeasant;
 import vazkii.kap.network.IPacket;
 import vazkii.kap.tile.TileEntityBanner;
 import vazkii.kap.tile.TileEntityThrone;
 import vazkii.kap.util.handler.MobStatHandler;
 import vazkii.kap.util.handler.VillagerNamingHandler;
 import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
@@ -39,6 +42,10 @@ public class CommonProxy {
 	public void initTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityBanner.class, tileName(LibBlockNames.NAME_HERALDRY_BLOCK));
 		GameRegistry.registerTileEntity(TileEntityThrone.class, tileName(LibBlockNames.NAME_THRONE));
+	}
+
+	public void initEntities() {
+		EntityRegistry.registerModEntity(EntityPeasant.class, "KAP_Peasant", 0, KingsAndPeasants.instance, 80, 3, true);
 	}
 
 	public void registerSubscribers() {

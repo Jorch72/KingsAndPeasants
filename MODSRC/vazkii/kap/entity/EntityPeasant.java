@@ -100,12 +100,12 @@ public class EntityPeasant extends EntityCreature {
 	}
 
 	@Override
-	public float func_110174_bM() {
+	public float func_110174_bM() { // Get max distance from home
 		return 8 + getLevel() * 8;
 	}
 
 	@Override
-	public ChunkCoordinates func_110172_bL() {
+	public ChunkCoordinates func_110172_bL() { // Get home coordinates
 		if(home1 == null) {
 			KingdomData data = getKingdomData();
 			if(data == null || !data.hasThrone(worldObj))
@@ -114,6 +114,25 @@ public class EntityPeasant extends EntityCreature {
 			return data.throneCoords.asChunkCoordinates();
 		} else return home1.asChunkCoordinates();
 	}
+
+	@Override
+	public boolean getAlwaysRenderNameTag() {
+		return true;
+	}
+
+	public boolean updateHomeCoords(Coordinates coords) {
+		KingdomData data = getKingdomData();
+		if(data != null) {
+			double distanceFromThrone = coords.distanceSqrdPlane(data.throneCoords);
+			if(distanceFromThrone > data.getRadius())
+				return false;
+
+			home1 = coords;
+			return true;
+		}
+		return false;
+	}
+
 
 	private void initAI() {
 		Occupation.occupations[getOccupation()].addAI(this);

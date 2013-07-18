@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.World;
 import vazkii.kap.block.ModBlocks;
 import vazkii.kap.tile.TileEntityThrone;
+import vazkii.kap.util.handler.ConfigHandler;
 import vazkii.kap.util.nbt.NBTManaged;
 import vazkii.kap.util.nbt.NBTManager;
 import cpw.mods.fml.relauncher.Side;
@@ -50,6 +51,10 @@ public class KingdomData implements Serializable {
 
 	public boolean hasThrone(World world) {
 		return throneCoords.y <= 256 && throneCoords.y > 0 && throneCoords.getBlockID(world) == ModBlocks.throne.blockID && ((TileEntityThrone) throneCoords.getTileEntity(world)).kingdom.equals(name);
+	}
+
+	public int getRadius() {
+		return ConfigHandler.kingdomRadius[tier];
 	}
 
 	public void writeToNBT(NBTTagCompound cmp) {

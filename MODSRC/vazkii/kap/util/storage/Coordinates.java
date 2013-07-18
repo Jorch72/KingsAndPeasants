@@ -45,4 +45,13 @@ public class Coordinates implements Serializable {
 	public ChunkCoordinates asChunkCoordinates() {
 		return new ChunkCoordinates(x, y, z);
 	}
+
+	public double distanceSqrdSpace(Coordinates coords) {
+		return (x - coords.x) * (x - coords.x) + (y - coords.y) * (y - coords.y) + (z - coords.z) * (z - coords.z);
+	}
+
+	public double distanceSqrdPlane(Coordinates coords) {
+		return (x - coords.x) * (x - coords.x) + (z - coords.z) * (z - coords.z);
+
+	}
 }

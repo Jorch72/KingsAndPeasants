@@ -21,14 +21,17 @@ import net.minecraft.network.INetworkManager;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.client.hud.HUDStatPopup;
+import vazkii.kap.client.render.entity.RenderPeasant;
 import vazkii.kap.client.render.tile.RenderTileBanner;
 import vazkii.kap.client.render.tile.RenderTileThrone;
 import vazkii.kap.client.util.handler.ClientTickHandler;
 import vazkii.kap.core.lib.LibResources;
+import vazkii.kap.entity.EntityPeasant;
 import vazkii.kap.network.IPacket;
 import vazkii.kap.tile.TileEntityBanner;
 import vazkii.kap.tile.TileEntityThrone;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -59,6 +62,13 @@ public class ClientProxy extends CommonProxy {
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new RenderTileBanner());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityThrone.class, new RenderTileThrone());
+	}
+
+	@Override
+	public void initEntities() {
+		super.initEntities();
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeasant.class, new RenderPeasant());
 	}
 
 	@Override

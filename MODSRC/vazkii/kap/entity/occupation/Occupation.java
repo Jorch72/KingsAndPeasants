@@ -22,6 +22,8 @@ public abstract class Occupation {
 
 	public final int id;
 
+	public static final Occupation peasant = new OccupationPeasant(0);
+
 	public Occupation(int id) {
 		if(occupations[id] != null)
 			throw new IllegalArgumentException("Occupation ID " + id + " is already occupied.");
@@ -57,6 +59,10 @@ public abstract class Occupation {
 
 	public void readFromNBT(EntityPeasant entity, NBTTagCompound cmp) {
 
+	}
+
+	public boolean isWorkingOccupation() {
+		return false;
 	}
 
 	public abstract String getTextureName(EntityPeasant entity);
