@@ -134,13 +134,13 @@ public class BlockThrone extends BlockContainer {
 
 	@Override
 	public int getRenderType() {
-		return -1;
+		return KingsAndPeasants.throneBlockRenderID;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int par1, int par2) {
-		return planks.getIcon(0, 1);
+		return stone.getIcon(0, 0);
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class RenderTileThrone extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		GL11.glPushMatrix();
-		int meta = tileentity.getBlockMetadata();
+		int meta = tileentity.worldObj == null ? 2 : tileentity.getBlockMetadata();
 		GL11.glTranslated(d0, d1, d2);
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		GL11.glRotatef(meta >= ROTATIONS.length ? 45F : ROTATIONS[meta], 0F, 1F, 0F);

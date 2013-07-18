@@ -37,6 +37,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @NetworkMod(clientSideRequired = true, channels = { LibMisc.NETWORK_CHANNEL }, packetHandler = PacketManager.class)
 public final class KingsAndPeasants {
 
+	public static int throneBlockRenderID = -1;
+
 	@Instance(LibMisc.MOD_ID)
 	public static KingsAndPeasants instance;
 

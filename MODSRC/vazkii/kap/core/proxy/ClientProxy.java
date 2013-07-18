@@ -21,6 +21,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.kap.KingsAndPeasants;
 import vazkii.kap.client.hud.HUDStatPopup;
+import vazkii.kap.client.render.block.RenderThrone;
 import vazkii.kap.client.render.entity.RenderPeasant;
 import vazkii.kap.client.render.tile.RenderTileBanner;
 import vazkii.kap.client.render.tile.RenderTileThrone;
@@ -62,6 +63,9 @@ public class ClientProxy extends CommonProxy {
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new RenderTileBanner());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityThrone.class, new RenderTileThrone());
+
+		KingsAndPeasants.throneBlockRenderID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(new RenderThrone());
 	}
 
 	@Override
